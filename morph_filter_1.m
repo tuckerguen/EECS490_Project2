@@ -13,10 +13,8 @@ function filtered = morph_filter_1(img, pattern_id_table)
             id = get_pattern_integer(bin_subimg);
             
             % If the pattern matches a pattern in the lookup table
-            if vector_contains(pattern_id_table, id) ...
-                && bin_subimg(2,2) == 1 ...
-                && ~isAllOnes(bin_subimg)
-                % Mark the pixel as potential removal pixel (0)
+            if vector_contains(pattern_id_table, id)
+                % Mark the pixel as potential removal pixel (255)
                 % A hit is a 1 (so that after filter1, during filter2,
                 % after inversion id calculations will be correct)
                 filtered(i, j) = 255;
@@ -25,16 +23,3 @@ function filtered = morph_filter_1(img, pattern_id_table)
             end
         end
     end
-    
-    function isAllOnes = isAllOnes(img)
-        isAllOnes = true;
-        for r=1:size(img,1)
-            for z=1:size(img,2)
-                if img(r,z) == 0
-                    isAllOnes = false;
-                end
-            end
-        end
-    
-
-    

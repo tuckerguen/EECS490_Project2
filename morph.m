@@ -26,14 +26,11 @@ function morphed = morph(img, num_iterations, method)
         % run filter1 on previous iteration result
         % get the matrix of conditional marks
         filter1 = morph_filter_1(result, cond_int_table);
-        % imshow(filter1);
 
         % fun filter2 on the new filter1
         filter2 = morph_filter_2(filter1, uncond_int_table);
-        % imshow(filter2);
         
         result = remove_erasures(result, filter2);
-        % imshow(result);
     end
     
     % Revert inversion

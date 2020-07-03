@@ -9,7 +9,7 @@ edge_detect_sod_nopreproc("Images/building_noise.raw", "laplacian", 170);
 %% 1-b-1 | F.O.D Enhanced
 edge_detect_fod_preproc("Images/building.raw", "prewitt", 15.8);
 % edge_detect_fod_preproc("Images/building_noise.raw", "prewitt", 10);
-%% 1-b-2 | F.O.D Enhanced
+%% 1-b-2 | S.O.D Enhanced
 edge_detect_sod_preproc("Images/building.raw", "laplacian", 10);
 edge_detect_sod_preproc("Images/building_noise.raw", "laplacian", 45);
 edge_detect_sod_nopreproc("Images/building.raw", "laplacian", 20);
@@ -48,7 +48,16 @@ imshow(skeleton_pcb);
 
 %% 3-a | Fixed Threshold Dithering - Digital Halftoning
 img = readraw("Images/barbara.raw");
-dithered = fixed_thresh_dithering(img, 100);
+h = myhist(img);
+c = cum_dist(h);
+thresh = S100;
+for i=1:size(c,1)
+    if c(i) > (size(img,1)*size(img,2))/2.0
+        thresh = i
+        break;
+    end
+end
+dithered = fixed_thresh_dithering(img, thresh);
 imshow(dithered);
 
 %% 3-b | Random Dithering - Digital Halftoning
