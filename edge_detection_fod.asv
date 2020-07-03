@@ -1,0 +1,48 @@
+function edge_detection_fod(img_name, operator)
+    row_mask = zeros(3, 'uint8');
+    col_mask = zeros(3, 'uint8');
+    
+    % consider changing this to use the K formula (pg 497 in txtbk pdf)
+    switch operator
+        case "pixel_diff"
+            row_mask = [0 0 0; 0 1 -1; 0 0 0];
+            col_mask = [0 -1 0; 0 1 0; 0 0 0];
+        case "sep_pixel_diff"
+            row_mask = [0 0 0 ; 1 0 -1; 0 0 0];
+            col_mask = [0 -1 0; 0 0 0; 0 1 0];
+        case "roberts"
+            row_mask = [0 0 -1; 0 1 0; 0 0 0]; 
+            col_mask = [-1 0 0; 0 1 0; 0 0 0];
+        case "sobel"
+            row_mask = [1/4 0 -1/4; 1/2 0 -1/2; 1/4 0 -1/4];
+            col_mask = [-1/4 -1/2 -1/4; 0 0 0; 1/4 1/2 1/4];
+        case "frei-chen"
+            row_mask = [1/(2+sqrt(2)) 0 -1/(2+sqrt(2));...
+                        sqrt(2)/(2+sqrt(2)) 0 -sqrt(2)/(2+sqrt(2));...
+                        1/(2+sqrt(2)) 0 -1/(2+sqrt(2))];
+            col_mask = [-1/(2+sqrt(2)) -sqrt(2)/(2+sqrt(2)) -1/(2+sqrt(2));...
+                        0 0 0;...
+                        1/(2+sqrt(2)) sqrt(2)/(2+sqrt(2)) 1/(2+sqrt(2))];
+        otherwise 
+            %prewitt
+            row_mask = [1/3 0 -1/3; 1/3 0 -1/3; 1/3 0 -1/3];
+            col_mask = [-1/3 -1/3 -1/3; 0 0 0; 1/3 1/3 1/3];
+    end
+    
+    img = imread(img_name);
+    row_grad = convolve(img, row_mask);
+    col_grad = convolve(img, col_mask);
+    
+    
+    
+    function combined = combine_row_col_grad(row_grad, col_grad)
+        num_rows = size(row_grad, 1);
+        num_cols = size(row_grad, 2);
+        combined = zeros(num_rows, num_cols, 'uint8');
+        
+        for i=1:num_rows
+            for j=1:num_cols
+                combined(i,j) = sqrt(row_grad
+            end
+        end
+    
