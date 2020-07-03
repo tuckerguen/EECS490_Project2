@@ -17,6 +17,7 @@ edge_detect_sod_nopreproc("Images/building_noise.raw", "laplacian", 170);
 %% 2-a | Shrinking - Morphological Image Processing
 patterns = readraw("Images/patterns.raw");
 shrunk_patterns = morph(patterns, 4, 'shrink');
+
 figure(1);
 imshow(shrunk_patterns);
 
@@ -26,7 +27,7 @@ figure(2);
 imshow(shrunk_pcb);
 %% 2-b | Thinning - Morphological Image Processing
 patterns = readraw("Images/patterns.raw");
-thinned_pattern = morph(patterns, 3, 'thin');
+thinned_pattern = morph(patterns, 4, 'thin');
 imshow(thinned_pattern);
 
 pcb = readraw("Images/pcb.raw");

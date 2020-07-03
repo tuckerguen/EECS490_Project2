@@ -3,10 +3,10 @@ function filtered = morph_filter_1(img, pattern_id_table)
     num_cols = size(img, 2);
     
     filtered = zeros(num_rows, num_cols, 'uint8');
-    img = add_dimensions(img, 1, 1, 255);
+    img = add_dimensions(img, 1, 1, 0);
     
-    for i=2:num_rows-1
-        for j=2:num_cols-1
+    for i=1:num_rows
+        for j=1:num_cols
             subimg = get_subimg(img, j, i, 3, 3);
             bin_subimg = to_binary(subimg);
             
@@ -14,7 +14,7 @@ function filtered = morph_filter_1(img, pattern_id_table)
             
             % If the pattern matches a pattern in the lookup table
             if vector_contains(pattern_id_table, id) ...
-                && bin_subimg(2,2) ~= 0 ...
+                && bin_subimg(2,2) == 1 ...
                 && ~isAllOnes(bin_subimg)
                 % Mark the pixel as potential removal pixel (0)
                 % A hit is a 1 (so that after filter1, during filter2,
