@@ -1,5 +1,5 @@
 function edge_detected = edge_detect_sod_nopreproc(img_name, operator, thresh)
-    img = readraw(img_name);
+    img = readraw("Images/" + img_name);
     edge_detected = edge_detect_sod(img, operator, thresh);
-    figure('Name', img_name + " sod edge detected no preproc", "NumberTitle", "off");
-    imshow(edge_detected);
+    writeraw(edge_detected, "Images/OUT_edge_detect_sod_nproc" + img_name);
+    project_show(edge_detected, img_name, "sod edge detected");

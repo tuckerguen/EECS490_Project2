@@ -1,7 +1,7 @@
 function edge_detect_fod_nopreproc(img_name, operator, thresh)
-    img = readraw(img_name);
+    img = readraw("Images/" + img_name);
     edge_detected = edge_detect_fod(img, operator, thresh);
-    figure('Name', img_name + " fod edge detected", "NumberTitle", "off");
-    imshow(edge_detected);
+    writeraw(edge_detected, "Images/OUT_edge_detect_fod_nproc" + img_name);
+    project_show(edge_detected, img_name, "fod edge detected");
     
     
