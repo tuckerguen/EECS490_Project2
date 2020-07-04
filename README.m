@@ -67,13 +67,13 @@ imshow(dithered);
 
 %% 3-c | Dithering Matrix (Pattern) - Digital Halftoning
 img = readraw("Images/barbara.raw");
-I2x2 = [1 2; 3 0];
+I2x2 = [ 1 2; 3 0 ];
 I4x4 = [  5  9  6 10;
          13  1 14  2;
           7 11  4  8;
-         15  3 12  0];
-dithered = matrix_dither(img, I2x2);
-dithered4Ilvl = matrix_dither_4Ilvl(img, I2x2);
+         15  3 12  0 ];
+dithered = matrix_dither(img, I4x4);
+dithered4Ilvl = matrix_dither_4Ilvl(img, I4x4);
 figure(1);
 imshow(dithered);
 figure(2);

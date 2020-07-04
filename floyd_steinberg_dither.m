@@ -2,8 +2,8 @@ function dithered = floyd_steinberg_dither(img)
     num_rows = size(img, 1);
     num_cols = size(img, 2);
     
-    dithered = zeros(num_rows, num_cols, 'uint8');
-        
+    dithered = zeros(num_rows, num_cols, 'double');
+    img = double(img);
     left2right = true;
     
     for i=1:num_rows
@@ -12,10 +12,12 @@ function dithered = floyd_steinberg_dither(img)
                 old_val = img(i,j);
                 new_val = closest_palette_color(old_val);
                 dithered(i,j) = new_val;
-                err = double(old_val - new_val);
+                err = double(old_val) - double(new_val);
 
                 if j+1 <= num_cols
                     img(i,j+1)   = double(img(i,j+1)) + err * (7.0/16.0);
+                else
+                    j=j;
                 end
                 if i+1 <= num_rows && j-1 > 0
                     img(i+1,j-1) = double(img(i+1,j-1)) + err * (3.0/16.0);
@@ -29,7 +31,7 @@ function dithered = floyd_steinberg_dither(img)
             end
             left2right = false;
         else
-            for j=1:num_cols
+            for j=num_cols:-1:1
                 old_val = img(i,j);
                 new_val = closest_palette_color(old_val);
                 dithered(i,j) = new_val;
@@ -51,6 +53,7 @@ function dithered = floyd_steinberg_dither(img)
             left2right = true;
         end
     end
+    dithered = uint8(dithered);
     
     function quantized_val = closest_palette_color(v)
         if v > (225.0/2.0)
