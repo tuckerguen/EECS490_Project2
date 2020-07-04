@@ -15,43 +15,82 @@
 % Where project_dir contains all source files, and /Images contains 
 % images to be read
 
-% TODO: Add a programatic calculation of threshold value
-
 %% 1-a-1 | First Order Derivative Gradient Edge Detection
 % M-file name: edge_detect_fod_nopreproc.m
-% Usage: edge_detect_fod_nopreproc(img_name, operator, threshold)
+% Usage: edge_detect_fod_nopreproc(img_name, operator, threshold_fraction)
+%     img_name = string name of image (exclude "Images/")
+%     operator = first order derivative discrete approximation operator
+%           options: pixel_diff, sep_pixel_diff, roberts, sobel, frei_chen, prewitt
+%     threshold_fraction = fraction (0-1) of pixels considered background
+%           based on derivative value 
+%           Ex:
+%               0.75 = consider bottom 75% of pixel derivative values to be
+%                background pixels
+%               0 = include all pixel derivative values
+%               1 = exclude all pixel derivative values
 % Output image: "Images/OUT_edge_detect_fod_nproc" + img_name
-% Parameters: operator=prewitt, thresh = 10
-edge_detect_fod_nopreproc("building.raw", "prewitt", 10);
-edge_detect_fod_nopreproc("building_noise.raw", "prewitt", 10);
+% Parameters: operator=prewitt, thresh_frac=0.85
+edge_detect_fod_nopreproc("building.raw", "prewitt", 0.85);
+edge_detect_fod_nopreproc("building_noise.raw", "prewitt", 0.85);
 
 %% 1-a-2 | Second Order Derivative Gradient Edge Detection
 % M-file name: edge_detect_sod_nopreproc.m
 % Usage: edge_detect_sod_nopreproc(img_name, operator, threshold)
+%     img_name = string name of image (exclude "Images/")
+%     operator = second order derivative discrete approximation operator
+%           options: laplacian, prewitt, sep_laplacian
+%     threshold_fraction = fraction (0-1) of pixels considered background
+%           based on derivative value 
+%           Ex:
+%               0.75 = consider bottom 75% of pixel derivative values to be
+%                background pixels
+%               0 = include all pixel derivative values
+%               1 = exclude all pixel derivative values
 % Output image: "Images/OUT_edge_detect_sod_nproc" + img_name
-% Parameters: operator=laplacian, thresh = 20, 170
-edge_detect_sod_nopreproc("building.raw", "laplacian", 20);
-edge_detect_sod_nopreproc("building_noise.raw", "laplacian", 170);
+% Parameters: operator=laplacian, thresh_frac=0.6
+edge_detect_sod_nopreproc("building.raw", "sep-laplacian", 0.6);
+edge_detect_sod_nopreproc("building_noise.raw", "sep-laplacian", 0.6);
 
 %% 1-b-1 | F.O.D Enhanced
 % M-file name: edge_detect_fod_preproc.m
 % Usage: edge_detect_fod_preproc(img_name, operator, threshold)
+%     img_name = string name of image (exclude "Images/")
+%     operator = first order derivative discrete approximation operator
+%           options: pixel_diff, sep_pixel_diff, roberts, sobel, frei_chen, prewitt
+%     threshold_fraction = fraction (0-1) of pixels considered background
+%           based on derivative value 
+%           Ex:
+%               0.75 = consider bottom 75% of pixel derivative values to be
+%                background pixels
+%               0 = include all pixel derivative values
+%               1 = exclude all pixel derivative values
 % Output image: "Images/OUT_edge_detect_fod_proc" + img_name
-% Parameters: operator=prewitt, thresh = 15.8
-edge_detect_fod_preproc("building.raw", "prewitt", 15.8);
-edge_detect_fod_preproc("building_noise.raw", "prewitt", 15.8);
+% Parameters: operator=prewitt, thresh_frac=0.85
+edge_detect_fod_preproc("building.raw", "prewitt", 0.85);
+edge_detect_fod_preproc("building_noise.raw", "prewitt", 0.85);
 
 %% 1-b-2 | S.O.D Enhanced
 % M-file name: edge_detect_sod_preproc.m
 % Usage: edge_detect_sod_preproc(img_name, operator, threshold)
+%     img_name = string name of image (exclude "Images/")
+%     operator = second order derivative discrete approximation operator
+%           options: laplacian, prewitt, sep_laplacian
+%     threshold_fraction = fraction (0-1) of pixels considered background
+%           based on derivative value 
+%           Ex:
+%               0.75 = consider bottom 75% of pixel derivative values to be
+%                background pixels
+%               0 = include all pixel derivative values
+%               1 = exclude all pixel derivative values
 % Output image: "Images/OUT_edge_detect_sod_proc" + img_name
-% Parameters: operator=laplacian, thresh = 20, 170
-edge_detect_sod_preproc("building.raw", "laplacian", 20);
-edge_detect_sod_preproc("building_noise.raw", "laplacian", 170);
+% Parameters: operator=laplacian, thresh_frac=0.6
+edge_detect_sod_preproc("building.raw", "laplacian", 0.6);
+edge_detect_sod_preproc("building_noise.raw", "laplacian", 0.6);
 
 %% 2-a | Shrinking - Morphological Image Processing
 % M-file name: shrink_patterns_pcb.m
 % Usage: shrink_patterns_pcb(num_iterations)
+%       num_iterations = number of times to apply shrink morph operation
 % Output image: "Images/OUT_shrunk_patterns.raw"
 %               "Images/OUT_shrunk_pcb.raw"
 % Parameters: num_iterations=4
@@ -60,6 +99,7 @@ shrink_patterns_pcb(4);
 %% 2-b | Thinning - Morphological Image Processing
 % M-file name: thin_patterns_pcb.m
 % Usage: thin_patterns_pcb(num_iterations)
+%       num_iterations = number of times to apply thinning morph operation
 % Output image: "Images/OUT_thinned_patterns.raw"
 %               "Images/OUT_thinned_pcb.raw"
 % Parameters: num_iterations=4
@@ -68,6 +108,7 @@ thin_patterns_pcb(4);
 %% 2-c | Skeletonizing - Morphological Image Processing
 % M-file name: skeletonize_patterns_pcb.m
 % Usage: skeletonize_patterns_pcb(num_iterations)
+%       num_iterations = number of times to apply skeletonize morph operation
 % Output images: "Images/OUT_skeleton_patterns.raw"
 %               "Images/OUT_skeleton_pcb.raw"
 % Parameters: num_iterations=4
