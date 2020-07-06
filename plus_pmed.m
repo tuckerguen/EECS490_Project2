@@ -1,3 +1,0 @@
-function pmed = plus_pmed(X, Y)
-    pmed = 1/2 * max([maximin(X), maximin(Y)]) ...
-            + 1/2 * min([minimax(X),minimax(Y)]);
