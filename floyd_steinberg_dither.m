@@ -16,8 +16,6 @@ function dithered = floyd_steinberg_dither(img)
 
                 if j+1 <= num_cols
                     img(i,j+1)   = double(img(i,j+1)) + err * (7.0/16.0);
-                else
-                    j=j;
                 end
                 if i+1 <= num_rows && j-1 > 0
                     img(i+1,j-1) = double(img(i+1,j-1)) + err * (3.0/16.0);
@@ -53,10 +51,11 @@ function dithered = floyd_steinberg_dither(img)
             left2right = true;
         end
     end
+    
     dithered = uint8(dithered);
     
     function quantized_val = closest_palette_color(v)
-        if v > (225.0/2.0)
+        if v > (255.0/2.0)
             quantized_val = 255;
         else
             quantized_val = 0;

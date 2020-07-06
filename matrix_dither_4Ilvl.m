@@ -25,9 +25,9 @@ function dithered = matrix_dither_4Ilvl(img, I)
             % Multiply by 255 since T is binary and 
             % img is uint8
             % add 1 cause matlab indexing
-            thresh_high = uint8(T(mod(j,N)+1, mod(i,N)+1) * 255);
-            thresh_low = uint8(255 - thresh_high);
-            thresh_mid = uint8(thresh_low + (thresh_high-thresh_low)/2);
+            thresh_mid = uint8(T(mod(j,N)+1, mod(i,N)+1) * 255);
+            thresh_low = thresh_mid / 2;
+            thresh_high = thresh_mid + (255-thresh_mid)/2;
             
             if val > thresh_high
                 dithered(i,j) = 255;
@@ -40,4 +40,6 @@ function dithered = matrix_dither_4Ilvl(img, I)
             end
         end
     end 
+    
+    
     

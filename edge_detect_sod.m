@@ -1,9 +1,9 @@
 function edge_detected = edge_detect_sod(img, operator, thresh_frac)
     switch lower(operator)
         case "laplacian"
-            mask = [ 0 -1  0; 
-                    -1  4 -1; 
-                     0 -1  0];
+            mask = [   0  -1/4    0; 
+                    -1/4    1  -1/4; 
+                       0  -1/4    0];
         case "prewitt"
             mask = [-1/8 -1/8 -1/8; 
                     -1/8   1  -1/8; 
@@ -13,10 +13,10 @@ function edge_detected = edge_detect_sod(img, operator, thresh_frac)
                      1/8 1/2  1/8;
                     -1/4 1/8 -1/4];
         otherwise 
-            printf("No valid operator defined; using laplacian");
-            mask = [ 0 -1  0; 
-                    -1  4 -1; 
-                     0 -1  0];
+            fprintf("No valid operator defined; using laplacian");
+            mask = [   0  -1/4    0; 
+                    -1/4    1  -1/4; 
+                       0  -1/4    0];
     end
 
     convolved = convolve_double(img, mask);

@@ -69,4 +69,15 @@ function edge_detected = edge_detect_fod(img, operator, thresh_frac)
                 combined(i,j) = val;
             end
         end
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     

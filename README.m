@@ -14,7 +14,6 @@
 
 % Where project_dir contains all source files, and /Images contains 
 % images to be read
-
 %% 1-a-1 | First Order Derivative Gradient Edge Detection
 % M-file name: edge_detect_fod_nopreproc.m
 % Usage: edge_detect_fod_nopreproc(img_name, operator, threshold_fraction)
@@ -30,8 +29,8 @@
 %               1 = exclude all pixel derivative values
 % Output image: "Images/OUT_edge_detect_fod_nproc" + img_name
 % Parameters: operator=prewitt, thresh_frac=0.85
-edge_detect_fod_nopreproc("building.raw", "prewitt", 0.85);
-edge_detect_fod_nopreproc("building_noise.raw", "prewitt", 0.85);
+edge_detect_fod_nopreproc("building.raw", "prewitt", 0.75);
+edge_detect_fod_nopreproc("building_noise.raw", "prewitt", 0.75);
 
 %% 1-a-2 | Second Order Derivative Gradient Edge Detection
 % M-file name: edge_detect_sod_nopreproc.m
@@ -48,8 +47,8 @@ edge_detect_fod_nopreproc("building_noise.raw", "prewitt", 0.85);
 %               1 = exclude all pixel derivative values
 % Output image: "Images/OUT_edge_detect_sod_nproc" + img_name
 % Parameters: operator=laplacian, thresh_frac=0.6
-edge_detect_sod_nopreproc("building.raw", "sep-laplacian", 0.6);
-edge_detect_sod_nopreproc("building_noise.raw", "sep-laplacian", 0.6);
+edge_detect_sod_nopreproc("building.raw", "laplacian", 0.6);
+edge_detect_sod_nopreproc("building_noise.raw", "laplacian", 0.6);
 
 %% 1-b-1 | F.O.D Enhanced
 % M-file name: edge_detect_fod_preproc.m
@@ -64,10 +63,11 @@ edge_detect_sod_nopreproc("building_noise.raw", "sep-laplacian", 0.6);
 %                background pixels
 %               0 = include all pixel derivative values
 %               1 = exclude all pixel derivative values
-% Output image: "Images/OUT_edge_detect_fod_proc" + img_name
+% Output image: "Images/OUT_edge_detect_fod_proc_contrast" + img_name
+%               "Images/OUT_edge_detect_fod_proc_noise" + img_name
 % Parameters: operator=prewitt, thresh_frac=0.85
-edge_detect_fod_preproc("building.raw", "prewitt", 0.85);
-edge_detect_fod_preproc("building_noise.raw", "prewitt", 0.85);
+edge_detect_fod_preproc_contrast("building.raw", "prewitt", 0.75);
+edge_detect_fod_preproc_noise("building_noise.raw", "prewitt", 0.75);
 
 %% 1-b-2 | S.O.D Enhanced
 % M-file name: edge_detect_sod_preproc.m
@@ -82,10 +82,11 @@ edge_detect_fod_preproc("building_noise.raw", "prewitt", 0.85);
 %                background pixels
 %               0 = include all pixel derivative values
 %               1 = exclude all pixel derivative values
-% Output image: "Images/OUT_edge_detect_sod_proc" + img_name
+% Output image: "Images/OUT_edge_detect_sod_proc_contrast" + img_name
+%               "Images/OUT_edge_detect_sod_proc_noise" + img_name
 % Parameters: operator=laplacian, thresh_frac=0.6
-edge_detect_sod_preproc("building.raw", "laplacian", 0.6);
-edge_detect_sod_preproc("building_noise.raw", "laplacian", 0.6);
+edge_detect_sod_preproc_contrast("building.raw", "laplacian", 0.6);
+edge_detect_sod_preproc_noise("building_noise.raw", "laplacian", 0.6);
 
 %% 2-a | Shrinking - Morphological Image Processing
 % M-file name: shrink_patterns_pcb.m
@@ -93,8 +94,8 @@ edge_detect_sod_preproc("building_noise.raw", "laplacian", 0.6);
 %       num_iterations = number of times to apply shrink morph operation
 % Output image: "Images/OUT_shrunk_patterns.raw"
 %               "Images/OUT_shrunk_pcb.raw"
-% Parameters: num_iterations=4
-shrink_patterns_pcb(4);
+% Parameters: num_iterations=2
+shrink_patterns_pcb(2);
 
 %% 2-b | Thinning - Morphological Image Processing
 % M-file name: thin_patterns_pcb.m
@@ -111,8 +112,8 @@ thin_patterns_pcb(4);
 %       num_iterations = number of times to apply skeletonize morph operation
 % Output images: "Images/OUT_skeleton_patterns.raw"
 %               "Images/OUT_skeleton_pcb.raw"
-% Parameters: num_iterations=4
-skeletonize_patterns_pcb(4);
+% Parameters: num_iterations=8
+skeletonize_patterns_pcb(8);
 
 %% 3-a | Fixed Threshold Dithering - Digital Halftoning
 % M-file name: fixed_thresh_dither_barbara.m

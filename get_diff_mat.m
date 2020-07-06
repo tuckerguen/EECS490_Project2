@@ -8,9 +8,26 @@ function diff_mat = get_diff_mat(img)
     for i=1:num_rows
         for j=1:num_cols
             subimg = get_subimg(img, j, i, 3, 3);
-            min = mymin(subimg);
-            max = mymax(subimg);
-            diff = abs(max - min);
+            positives = subimg( subimg > 0 );
+            negatives = subimg( subimg < 0 );
+            max_pos = mymax(positives);
+            min_neg = mymin(negatives);
+            if max_pos < 0
+                max_pos = 0;
+            end
+            if min_neg > 0
+                min_neg = 0;
+            end
+            diff = abs(max_pos - min_neg);
             diff_mat(i,j) = diff;
         end
     end
+    
+    function positives = get_positives(A)
+        signs = sign(A);
+        
+        for i=1:size(A)
+            if signs(i)
+                positives(i) = A(i);
+            end
+        end

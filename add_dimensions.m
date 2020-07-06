@@ -7,7 +7,8 @@ function output = add_dimensions(img, rows, cols, border_val)
     % Calculate the new dimensions
     new_rows = img_rows+2*rows;
     new_cols = img_cols+2*cols;
-    output = zeros(new_rows, new_cols, 'uint8');
+    
+    output = zeros(new_rows, new_cols, class(img));
     
     %Set initial values
     for r=1:new_rows

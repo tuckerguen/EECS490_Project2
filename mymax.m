@@ -3,7 +3,7 @@ function max = mymax(A)
     num_cols = size(A, 2);
     
     % Initial max is smallest value of a floating point number
-    max = realmin;
+    max = -realmax;
     for i=1:num_rows
         for j=1:num_cols
             val = A(i,j);
